@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db #service is name of what other app is looking for (db = redis)
+  labels:
+    name: db-service
+    app: demo-voting-app #still the same name for all app
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+      #listen and forward port to pod for services filtered by selector
+  selector:
+    name: postgres-pod
+    app: demo-voting-app
+
+
