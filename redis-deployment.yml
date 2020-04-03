@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis-pod #labels are refered by services lated
+      app: demo-voting-app
+  template:
+    metadata:
+      name: redis-pod #name of pod
+      labels:
+        name: redis-pod #labels are refered by services lated
+        app: demo-voting-app
+    #same format of labels using for all services
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379 #default redis exposed port

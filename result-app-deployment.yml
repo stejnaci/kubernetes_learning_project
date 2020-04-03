@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-app-deployment
+  labels:
+    app: result-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: result-app-pod #labels are refered by services lated
+      app: demo-voting-app
+  template:
+    metadata:
+      name: result-app-pod #name of pod
+      labels:
+        name: result-app-pod #labels are refered by services lated
+        app: demo-voting-app
+    #same format of labels using for all services
+    spec:
+      containers:
+        - name: result-app
+          image: dockersamples/examplevotingapp_result
+          ports:
+            - containerPort: 80 #exposes port 80 it is web application
